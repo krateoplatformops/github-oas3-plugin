@@ -10,14 +10,11 @@ import json
 import ssl
 import base64
 import requests
-ssl._create_default_https_context = ssl._create_unverified_context
-
 
 class DemoParameter(Schema):
     owner = fields.Str()
     repo = fields.Str()
     username = fields.Str()
-
 
 class UserSchema(Schema):
     avatar_url = fields.Str()
@@ -134,10 +131,3 @@ def get_permissions(owner, repo, username):
 if __name__ == "__main__":
     serve(app, host='0.0.0.0', port=8080)
 
-# # Since path inspects the view and its route,
-# # we need to be in a Flask request context
-# with app.test_request_context():
-#     spec.path(view=get_permissions)
-# # We're good to go! Save this to a file for now.
-# with open('swagger.yaml', 'w') as f:
-#     f.write(spec.to_yaml())

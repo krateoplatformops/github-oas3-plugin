@@ -1,0 +1,111 @@
+info:
+  description: Simple WebService API
+  version: 1.0.0-oas3
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Simple WebService API
+servers:
+- description: Simple WebService
+  url: http://localhost:8080
+tags:
+- name: Demo
+  description: Endpoints related to Demo
+paths:
+  /repository/{owner}/{repo}/collaborators/{username}/permission:
+    get:
+      parameters:
+      - in: path
+        name: owner
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: repo
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: username
+        schema:
+          type: string
+        required: true
+      responses:
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                title: Basic Error
+                description: Basic Error
+                type: object
+                properties:
+                  message:
+                    type: string
+                  documentation_url:
+                    type: string
+                  url:
+                    type: string
+                  status:
+                    type: string
+        '200':
+          description: Get the permission of a collaborator in a repository
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Perms'
+openapi: 3.0.2
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        avatar_url:
+          type: string
+        events_url:
+          type: string
+        followers_url:
+          type: string
+        following_url:
+          type: string
+        gists_url:
+          type: string
+        gravatar_id:
+          type: string
+        html_url:
+          type: string
+        id:
+          type: integer
+        login:
+          type: string
+        node_id:
+          type: string
+        organizations_url:
+          type: string
+        permissions:
+          type: object
+        received_events_url:
+          type: string
+        repos_url:
+          type: string
+        role_name:
+          type: string
+        site_admin:
+          type: boolean
+        starred_url:
+          type: string
+        subscriptions_url:
+          type: string
+        type:
+          type: string
+        url:
+          type: string
+    Perms:
+      type: object
+      properties:
+        permission:
+          type: string
+        role_name:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
